@@ -1,12 +1,10 @@
+# Histórico de Desenvolvimento do Projeto
+
 ### Fontes de informação utilizadas:
 
-- [Markdown Basic Syntax](https://www.markdownguide.org/basic-syntax)  
-
-
+- [Markdown Basic Syntax](https://www.markdownguide.org/basic-syntax)
 - [Git Flow (Atlassian)](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
 - [Git Flow (Alura)](https://www.alura.com.br/artigos/git-flow-o-que-e-como-quando-utilizar)
-
-
 - [(UDEMY) Design Patterns com Java](https://www.udemy.com/course/curso-design-patterns-java)  
 - [(UDEMY) Microservices w/ Spring Boot](https://www.udemy.com/course/microservices-with-spring-boot-and-spring-cloud)
 - [Building a REST service (documentação oficial)](https://spring.io/guides/tutorials/rest/)  
