@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: streamingdb
+      MYSQL_USER: atlantico
+      MYSQL_PASSWORD: atlantico
+      MYSQL_ROOT_PASSWORD: atlantico
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
