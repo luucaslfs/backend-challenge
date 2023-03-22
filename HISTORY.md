@@ -68,3 +68,9 @@
     17/03 - Refactor do repositório do projeto p/ se adequar ao git flow
 
     20/03 - Criação do README.md e do HISTORY.md
+            Refeitos arquivos perdidos por um erro de operação do Git.
+
+    21/03 - Criadas camadas Repository, Service e Controller
+            Entidades configuradas.
+    
+    22/03 - Feita conexão com MYSQL através do JPA e Hibernate.
