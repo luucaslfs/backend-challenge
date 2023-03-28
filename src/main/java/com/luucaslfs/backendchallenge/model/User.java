@@ -24,4 +24,7 @@ public class User {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Subscription subscription;
+
 }
