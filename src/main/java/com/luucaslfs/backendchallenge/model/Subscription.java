@@ -34,4 +34,7 @@ public class Subscription {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
+    @OneToOne(mappedBy = "subscription")
+    private EventHistory eventHistory;
+
 }

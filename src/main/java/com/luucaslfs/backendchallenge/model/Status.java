@@ -3,6 +3,8 @@ package com.luucaslfs.backendchallenge.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -18,5 +20,9 @@ public class Status {
 
     @Column(name = "status_name")
     private String statusName;
+
+    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<Subscription> subscriptionList;
 
 }
