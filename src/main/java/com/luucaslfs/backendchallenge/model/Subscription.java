@@ -1,5 +1,6 @@
 package com.luucaslfs.backendchallenge.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class Subscription {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonManagedReference
     @JoinColumn(name = "status_id")
     @ToString.Exclude
     private Status status;
