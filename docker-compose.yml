@@ -2,6 +2,7 @@ version: '3.7'
 
 services:
   mysql:
+    container_name: "mysql"
     image: mysql:8.0
     restart: always
     environment:
@@ -13,3 +14,15 @@ services:
       - ./mysql-data:/var/lib/mysql
     ports:
       - "3306:3306"
+
+  rabbitmq3:
+    container_name: "rabbitmq"
+    image: rabbitmq:3.8-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      # AMQP protocol port
+      - '5672:5672'
+      # HTTP management UI
+      - '15672:15672'

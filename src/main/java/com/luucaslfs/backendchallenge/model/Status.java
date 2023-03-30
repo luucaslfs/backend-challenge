@@ -1,5 +1,6 @@
 package com.luucaslfs.backendchallenge.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,7 @@ public class Status {
     private String statusName;
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
+    @JsonBackReference
     @ToString.Exclude
     private List<Subscription> subscriptionList;
 
