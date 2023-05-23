@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
@@ -18,3 +18,17 @@ spring:
     port: 5672
     username: guest
     password: guest
+
+  springdoc:
+    use-management-port: true
+    packagesToScan:
+      - com.luucaslfs.backendchallenge.controller
+
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: openapi,swagger-ui
+
+  server:
+    port: 9090

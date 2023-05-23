@@ -60,6 +60,8 @@
 
 ### Histórico: 
 
+    2023
+
     13/03 - Inicialização do projeto e do repositório, primeiros passos.
 
 	14/03 - Criadas as classes model, definindo os dados da aplicação de acordo com o diagrama.
@@ -74,3 +76,13 @@
             Entidades configuradas.
     
     22/03 - Feita conexão com MYSQL através do JPA e Hibernate.
+
+    30/03 - Adicionados arquivos do rabbitmq
+
+    03/04 - Configuração do RabbitMQ
+
+    10/04 - Banco Mysql e RabbitMQ configurados no docker
+
+    06/05 - Ajustes nos models para melhor estabelecer as relações entre as tabelas
+
+    10/05 - Configuração da Documentação via SpringDOC
