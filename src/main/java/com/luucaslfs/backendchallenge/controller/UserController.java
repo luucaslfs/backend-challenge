@@ -2,12 +2,14 @@ package com.luucaslfs.backendchallenge.controller;
 
 import com.luucaslfs.backendchallenge.model.User;
 import com.luucaslfs.backendchallenge.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Tag(name = "User", description = "Apis for manipulating service user database")
 public class UserController {
 
     @Autowired private UserService userService;

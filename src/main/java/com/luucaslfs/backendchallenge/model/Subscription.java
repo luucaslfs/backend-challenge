@@ -16,13 +16,18 @@ import java.sql.Timestamp;
 public class Subscription {
 
     @Id
+    @Column(name = "subscription_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "subscription")
     @ToString.Exclude
     private User user;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "event_history_id")
+    @ToString.Exclude
+    private EventHistory eventHistory;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonManagedReference
@@ -30,13 +35,12 @@ public class Subscription {
     @ToString.Exclude
     private Status status;
 
+    @Column(name = "user_id")
+    private int userId;
+
     @Column(name = "created_at")
     private Timestamp createdAt;
 
     @Column(name = "updated_at")
     private Timestamp updatedAt;
-
-    @OneToOne(mappedBy = "subscription")
-    private EventHistory eventHistory;
-
 }
