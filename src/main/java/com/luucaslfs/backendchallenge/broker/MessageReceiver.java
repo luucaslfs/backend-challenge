@@ -2,19 +2,15 @@ package com.luucaslfs.backendchallenge.broker;
 
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.CountDownLatch;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class MessageReceiver {
 
-    private CountDownLatch latch = new CountDownLatch(1);
-
-    public void receiveMessage(String message) {
-        System.out.println("Received <" + message + ">");
-        latch.countDown();
+    @RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
+    public void listener(CustomMessage message) {
+        System.out.println(message);
     }
 
-    public CountDownLatch getLatch() {
-        return latch;
-    }
 }

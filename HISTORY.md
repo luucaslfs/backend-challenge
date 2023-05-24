@@ -79,10 +79,20 @@
 
     30/03 - Adicionados arquivos do rabbitmq
 
-    03/04 - Configuração do RabbitMQ
+    03/04 - Configuração inicial do RabbitMQ
 
     10/04 - Banco Mysql e RabbitMQ configurados no docker
 
     06/05 - Ajustes nos models para melhor estabelecer as relações entre as tabelas
 
     10/05 - Configuração da Documentação via SpringDOC
+
+    14/05 - Configuração do Swagger
+
+    16/05 - Configuração do RabbitMQ concluída
+
+    22/05 - Testes com rabbitMQ bem sucedidos
+
+    23/05 - Desenvolvimento do endpoint para receber as notificações de alteração de status
+
+    24/05 - Endpoint funcionando, mensagem recebida e processada
