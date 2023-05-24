@@ -18,6 +18,9 @@ spring:
     port: 5672
     username: guest
     password: guest
+    template:
+      default-receive-queue: subscription.v1.subscription-update
+
 
   springdoc:
     use-management-port: true
