@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 @Setter
 @ToString
 @Entity
+@EqualsAndHashCode(of = "subscription_id")
 @Table(name = "subscription")
 public class Subscription {
 
@@ -30,7 +31,6 @@ public class Subscription {
     private EventHistory eventHistory;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonManagedReference
     @JoinColumn(name = "status_id")
     @ToString.Exclude
     private Status status;

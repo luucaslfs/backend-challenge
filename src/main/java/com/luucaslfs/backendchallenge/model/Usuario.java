@@ -5,29 +5,32 @@ import lombok.*;
 
 import java.sql.Timestamp;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
+@Entity(name = "usuario")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-@Entity(name = "user_details")
-@EqualsAndHashCode(of = "user_id")
-@Table(name = "users")
-public class User {
+@Builder
+@EqualsAndHashCode(of = "id")
+
+public class Usuario {
     @Id
-    @Column(name="user_id")
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subscription_id")
-    private Subscription subscription;
+    @OneToOne(mappedBy = "usuario")
+    private Assinatura assinatura;
 
     @Column(name = "full_name")
     private String fullName;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
+
+    public Usuario(RequestUsuario requestUsuario) {
+        this.fullName = requestUsuario.fullName();
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+    }
 }

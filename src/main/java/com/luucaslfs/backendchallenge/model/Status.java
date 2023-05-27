@@ -6,13 +6,13 @@ import lombok.*;
 
 import java.util.List;
 
+@Entity(name = "status")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-@Entity
-@Table(name = "status")
+@Builder
 public class Status {
 
     @Id

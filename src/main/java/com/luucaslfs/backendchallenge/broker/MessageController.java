@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.UUID;
 
 @RestController
@@ -20,7 +19,6 @@ public class MessageController {
     @PostMapping("/update-subscription-status")
     public String publishMessage(@RequestBody CustomMessage message) {
         message.setMessageId(UUID.randomUUID().toString());
-        message.setMessageDate(new Date());
         template.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, "subscription-status", message);
         return "Message published";
     }

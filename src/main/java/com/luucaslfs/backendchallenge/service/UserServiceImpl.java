@@ -34,20 +34,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
+        //Create a new User
+        User newUser = new User();
+        newUser.setFullName(user.getFullName());
+        newUser.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+
         // Create a new subscription with default settings
         Subscription subscription = new Subscription();
-        subscription.setUser(user);
+        subscription.setUser(newUser);
         Status status = statusRepository.findByStatusName("NEVER_ACTIVATED").orElseThrow(
                 () -> new ResourceNotFoundException("Status 'NEVER_ACTIVATED' not found"));
         subscription.setStatus(status);
-        subscription.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        subscription.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         subscription.setUpdatedAt(subscription.getCreatedAt());
-        subscriptionRepository.save(subscription);
+        Subscription savedSubscription = subscriptionRepository.save(subscription);
 
         // Set the subscription object to the user object and save it
-        user.setSubscription(subscription);
-        user.setCreatedAt(subscription.getCreatedAt());
-        return userRepository.save(user);
+        newUser.setSubscription(savedSubscription);
+        return userRepository.save(newUser);
     }
 
     @Override
