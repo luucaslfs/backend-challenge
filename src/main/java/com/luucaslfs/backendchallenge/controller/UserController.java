@@ -3,6 +3,7 @@ package com.luucaslfs.backendchallenge.controller;
 import com.luucaslfs.backendchallenge.model.UserDTO;
 import com.luucaslfs.backendchallenge.model.User;
 import com.luucaslfs.backendchallenge.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@Tag(
+        name = "User",
+        description = "Endpoints to manipulate users"
+)
 @RestController
 @RequestMapping("/user")
 public class UserController {
