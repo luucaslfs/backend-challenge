@@ -10,9 +10,8 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class CustomMessage {
+public class NotificationMessage {
 
-    private String messageId;
-    private String message;
-    private Date messageDate;
+    private int subscriptionId;
+    private String type;
 }
