@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 @Setter
 @ToString
 @Entity
+@Builder
 @Table(name = "event_history")
 public class EventHistory {
 

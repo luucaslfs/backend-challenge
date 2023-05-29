@@ -1,9 +1,11 @@
 package com.luucaslfs.backendchallenge.service;
 
 import com.luucaslfs.backendchallenge.model.*;
+import com.luucaslfs.backendchallenge.repository.EventHistoryRepository;
 import com.luucaslfs.backendchallenge.repository.StatusRepository;
 import com.luucaslfs.backendchallenge.repository.SubscriptionRepository;
 import com.luucaslfs.backendchallenge.repository.UserRepository;
+import org.hibernate.event.internal.EvictVisitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,9 @@ public class SubscriptionService {
 
     @Autowired
     private StatusRepository statusRepository;
+
+    @Autowired
+    private EventHistoryRepository eventHistoryRepository;
 
     public List<Subscription> getAllSubscriptions() {
         return subscriptionRepository.findAll();
@@ -68,13 +73,20 @@ public class SubscriptionService {
     @Transactional
     public Optional<Subscription> updateSubscriptionStatus(SubscriptionDTO data) {
         Optional<Subscription> optionalSubscription = subscriptionRepository.findById(data.id());
-        Optional<Status> optionalStatus = statusRepository.findById(2);
+        Optional<Status> optionalStatus = statusRepository.findById(data.status_id());
 
         if (optionalSubscription.isPresent()) {
             Subscription subscription = optionalSubscription.get();
             subscription.setStatus(optionalStatus.get());
-            // Set other fields if necessary
-            // Perform any additional business logic or validation here
+            subscription.setUpdatedAt(data.updatedAt());
+
+            EventHistory eventHistory = EventHistory.builder()
+                    .subscription(subscription)
+                    .type("STATUS_UPDATE")
+                    .createdAt(new Timestamp(System.currentTimeMillis()))
+                    .build();
+            eventHistoryRepository.save(eventHistory);
+
             return Optional.of(subscription);
         } else {
             return Optional.empty();
