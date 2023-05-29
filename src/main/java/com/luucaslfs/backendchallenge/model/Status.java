@@ -16,16 +16,11 @@ import java.util.List;
 public class Status {
 
     @Id
-    @Column(name = "status_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
     @Column(name = "status_name")
     private String statusName;
-
-    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
-    @JsonBackReference
-    @ToString.Exclude
-    private List<Subscription> subscriptionList;
 
 }

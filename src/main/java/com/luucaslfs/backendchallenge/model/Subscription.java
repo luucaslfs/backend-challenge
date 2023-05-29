@@ -1,46 +1,35 @@
 package com.luucaslfs.backendchallenge.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.sql.Timestamp;
 
+@Entity(name = "subscription")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-@Entity
-@EqualsAndHashCode(of = "subscription_id")
-@Table(name = "subscription")
+@Builder
+@EqualsAndHashCode(of = "id")
 public class Subscription {
-
     @Id
-    @Column(name = "subscription_id")
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "subscription")
-    @ToString.Exclude
-    private User user;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_history_id")
-    @ToString.Exclude
-    private EventHistory eventHistory;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "status_id")
-    @ToString.Exclude
-    private Status status;
-
-    @Column(name = "user_id")
-    private int userId;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
 
     @Column(name = "updated_at")
     private Timestamp updatedAt;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
+    private Status status;
 }
+
