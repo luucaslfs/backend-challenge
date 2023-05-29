@@ -11,19 +11,14 @@ import java.sql.Timestamp;
 @Setter
 @ToString
 @Entity
+@Builder
 @Table(name = "event_history")
 public class EventHistory {
 
     @Id
-    @Column(name = "event_history_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "eventHistory")
-    private Subscription subscription;
-
-    @Column(name = "subscription_id")
-    private int subscriptionId;
 
     @Column(name = "type")
     private String type;
@@ -31,6 +26,8 @@ public class EventHistory {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "subscription_id", referencedColumnName = "id")
+    private Subscription subscription;
 
 }

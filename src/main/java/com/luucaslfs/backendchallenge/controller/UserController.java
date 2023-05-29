@@ -1,41 +1,47 @@
 package com.luucaslfs.backendchallenge.controller;
 
+import com.luucaslfs.backendchallenge.model.UserDTO;
 import com.luucaslfs.backendchallenge.model.User;
 import com.luucaslfs.backendchallenge.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
+@Tag(
+        name = "User",
+        description = "Endpoints to manipulate users"
+)
 @RestController
-@Tag(name = "User", description = "Apis for manipulating service user database")
+@RequestMapping("/user")
 public class UserController {
 
-    @Autowired private UserService userService;
+    @Autowired
+    private UserService userService;
 
-    // Save operation
-    @PostMapping("/user")
-    public User saveUser(@RequestBody User user) {
-        return userService.createUser(user);
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers(){
+        List<User> allUsers = userService.getAllUsers();
+        return ResponseEntity.ok(allUsers);
     }
 
-    // Find one operation
-    @GetMapping("/user/{id}")
-    public User getUser(@PathVariable("id") int userId) {
-        return userService.getUserById(userId);
+    @PostMapping
+    public ResponseEntity<Void> registerUser(@RequestBody @Valid UserDTO data){
+        User newUser = userService.registerUser(data);
+        return ResponseEntity.ok().build();
     }
 
-    // List all operation
-    @GetMapping("/users")
-    public List<User> userList() {
-        return userService.getAllUsers();
+    @PutMapping
+    public ResponseEntity<Void> updateUser(@RequestBody @Valid UserDTO data){
+        Optional<User> optionalUser = userService.updateUser(data);
+        if (optionalUser.isPresent()) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
-
-    @DeleteMapping("/user/{id}")
-    public String deleteUser(@PathVariable("id") int userId){
-        userService.deleteUser(userId);
-        return "User deleted";
-    }
-
 }

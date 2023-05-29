@@ -5,26 +5,29 @@ import lombok.*;
 
 import java.sql.Timestamp;
 
+@Entity(name = "user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-@Entity(name = "user_details")
-@Table(name = "users")
+@Builder
+@EqualsAndHashCode(of = "id")
+
 public class User {
     @Id
-    @Column(name="user_id")
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subscription_id")
-    private Subscription subscription;
 
     @Column(name = "full_name")
     private String fullName;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
+
+    public User(UserDTO userDTO) {
+        this.fullName = userDTO.fullName();
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+    }
 }

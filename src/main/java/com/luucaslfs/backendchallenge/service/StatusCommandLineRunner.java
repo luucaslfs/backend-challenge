@@ -30,7 +30,7 @@ public class StatusCommandLineRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         createDefaultStatuses();
-        testUserSubscription();
+        //testUserSubscription();
     }
 
     private void createDefaultStatuses() {

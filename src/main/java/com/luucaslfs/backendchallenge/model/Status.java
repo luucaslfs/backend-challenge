@@ -6,26 +6,21 @@ import lombok.*;
 
 import java.util.List;
 
+@Entity(name = "status")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-@Entity
-@Table(name = "status")
+@Builder
 public class Status {
 
     @Id
-    @Column(name = "status_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
     @Column(name = "status_name")
     private String statusName;
-
-    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
-    @JsonBackReference
-    @ToString.Exclude
-    private List<Subscription> subscriptionList;
 
 }
