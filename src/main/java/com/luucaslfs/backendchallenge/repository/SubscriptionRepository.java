@@ -1,9 +1,10 @@
 package com.luucaslfs.backendchallenge.repository;
 
 import com.luucaslfs.backendchallenge.model.Subscription;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface SubscriptionRepository extends CrudRepository<Subscription, Integer> {
+import java.util.List;
+
+public interface SubscriptionRepository extends JpaRepository<Subscription, Integer> {
+    List<Subscription> findAllByStatusId(int status_id);
 }
