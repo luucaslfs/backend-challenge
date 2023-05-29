@@ -36,7 +36,7 @@
 
 
 - #### Definir os endpoints da API  
->  - No caso desse projeto, se trata de apenas um endpoint que deve atualizar o status da assinatura de um cliente. 
+>  - No caso desse projeto, se trata de apenas um endpoint que deve atualizar o status da subscription de um cliente. 
 >  - Ao receber uma notificação da fila do RabbitMQ, o programa deve processar a atualização do status do usuário, na base de dados, de acordo com a notificação recebida.
 >    
 >
@@ -47,9 +47,9 @@
 > 
 > 
 >    -  Tipos de notificação:  
-          -  SUBSCRIPTION_PURCHASED - A Compra foi realizada e a assinatura deve estar com status ativa.  
-          -  SUBSCRIPTION_CANCELED - A Compra foi cancelada e a assinatura deve estar com status cancelada.  
-          -  SUBSCRIPTION_RESTARTED - A Compra foi recuperada e a assinatura deve estar com status ativa.  
+          -  SUBSCRIPTION_PURCHASED - A Compra foi realizada e a subscription deve estar com status ativa.  
+          -  SUBSCRIPTION_CANCELED - A Compra foi cancelada e a subscription deve estar com status cancelada.  
+          -  SUBSCRIPTION_RESTARTED - A Compra foi recuperada e a subscription deve estar com status ativa.  
 >	
 >	
 >	- Dividir implementação do Endpoint em 3 camadas.    
@@ -91,8 +91,20 @@
 
     16/05 - Configuração do RabbitMQ concluída
 
-    22/05 - Testes com rabbitMQ bem sucedidos
+    17/05 - Testes com rabbitMQ bem sucedidos
 
-    23/05 - Desenvolvimento do endpoint para receber as notificações de alteração de status
+    18/05 - Desenvolvimento do endpoint para receber as notificações de alteração de status
 
-    24/05 - Endpoint funcionando, mensagem recebida e processada
+    19/05 - Refactor dos models e criação de DTOs
+
+    20/05 - Refactor da camada Service
+
+    22/05 - Refactor da camada Controller
+
+    23/05 - Endpoint funcionando, mensagem recebida e processada
+
+    25/05 - Testes de integração criados
+
+    28/05 - Criada documentação com SpringDOC e Swagger
+
+    29/05 - Testes unitarios criados
