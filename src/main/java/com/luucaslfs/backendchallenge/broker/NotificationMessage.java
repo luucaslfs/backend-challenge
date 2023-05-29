@@ -14,4 +14,9 @@ public class NotificationMessage {
 
     private int subscriptionId;
     private String type;
+
+    public NotificationMessage(String type, int subscriptionId){
+        this.type = type;
+        this.subscriptionId = subscriptionId;
+    }
 }
