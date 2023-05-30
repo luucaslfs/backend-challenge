@@ -1,5 +1,6 @@
 package com.luucaslfs.backendchallenge.model;
 
+import com.luucaslfs.backendchallenge.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,7 +28,7 @@ public class User {
     private Timestamp createdAt;
 
     public User(UserDTO userDTO) {
-        this.fullName = userDTO.fullName();
+        this.fullName = userDTO.getFullName();
         this.createdAt = new Timestamp(System.currentTimeMillis());
     }
 }
