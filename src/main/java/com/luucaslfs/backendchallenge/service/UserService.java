@@ -1,6 +1,6 @@
 package com.luucaslfs.backendchallenge.service;
 
-import com.luucaslfs.backendchallenge.model.UserDTO;
+import com.luucaslfs.backendchallenge.dto.UserDTO;
 import com.luucaslfs.backendchallenge.model.Subscription;
 import com.luucaslfs.backendchallenge.model.User;
 import com.luucaslfs.backendchallenge.repository.StatusRepository;
@@ -32,7 +32,7 @@ public class UserService {
 
     public User registerUser(UserDTO data) {
         User user = User.builder()
-                .fullName(data.fullName())
+                .fullName(data.getFullName())
                 .createdAt(new Timestamp(System.currentTimeMillis()))
                 .build();
         Subscription subscription = Subscription.builder()
@@ -46,10 +46,10 @@ public class UserService {
 
     @Transactional
     public Optional<User> updateUser(UserDTO data) {
-        Optional<User> optionalUser = userRepository.findById(data.id());
+        Optional<User> optionalUser = userRepository.findById(data.getId());
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            user.setFullName(data.fullName());
+            user.setFullName(data.getFullName());
             // Set other fields if necessary
             // Perform any additional business logic or validation here
             return Optional.of(user);

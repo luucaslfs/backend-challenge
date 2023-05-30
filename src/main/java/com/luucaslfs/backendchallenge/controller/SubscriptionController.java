@@ -1,6 +1,6 @@
 package com.luucaslfs.backendchallenge.controller;
 
-import com.luucaslfs.backendchallenge.model.SubscriptionDTO;
+import com.luucaslfs.backendchallenge.dto.SubscriptionDTO;
 import com.luucaslfs.backendchallenge.model.Subscription;
 import com.luucaslfs.backendchallenge.service.SubscriptionService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,23 +31,13 @@ public class SubscriptionController {
 
     @PostMapping
     public ResponseEntity<Void> registerSubscription(@RequestBody @Valid SubscriptionDTO data){
-        Optional<Subscription> newSubscription = subscriptionService.registerSubscription(data);
+        subscriptionService.registerSubscription(data);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping
     public ResponseEntity<Void> updateSubscription(@RequestBody @Valid SubscriptionDTO data){
         Optional<Subscription> optionalSubscription = subscriptionService.updateSubscription(data);
-        if (optionalSubscription.isPresent()) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @PutMapping("/status-purchased")
-    public ResponseEntity<Void> updateSubscriptionStatus(@RequestBody @Valid SubscriptionDTO data){
-        Optional<Subscription> optionalSubscription = subscriptionService.updateSubscriptionStatus(data);
         if (optionalSubscription.isPresent()) {
             return ResponseEntity.ok().build();
         } else {
