@@ -8,8 +8,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 import java.util.Optional;
 
 @Tag(
@@ -22,12 +20,6 @@ public class SubscriptionController {
 
     @Autowired
     SubscriptionService subscriptionService;
-
-    @GetMapping
-    public ResponseEntity<List<Subscription>> getAllSubscriptions(){
-        List<Subscription> allSubscriptions = subscriptionService.getAllSubscriptions();
-        return ResponseEntity.ok(allSubscriptions);
-    }
 
     @PostMapping
     public ResponseEntity<Void> registerSubscription(@RequestBody @Valid SubscriptionDTO data){

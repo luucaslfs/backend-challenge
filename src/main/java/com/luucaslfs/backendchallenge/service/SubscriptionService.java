@@ -30,10 +30,6 @@ public class SubscriptionService {
     @Autowired
     private EventHistoryRepository eventHistoryRepository;
 
-    public List<Subscription> getAllSubscriptions() {
-        return subscriptionRepository.findAll();
-    }
-
     public Optional<Subscription> registerSubscription(SubscriptionDTO data) {
         Optional<User> optionalUser = userRepository.findById(data.getUser_id());
         Optional<Status> optionalStatus = statusRepository.findByStatusName("NEVER_ACTIVATED");
