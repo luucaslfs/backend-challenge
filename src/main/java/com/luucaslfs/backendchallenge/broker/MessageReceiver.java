@@ -1,7 +1,7 @@
 package com.luucaslfs.backendchallenge.broker;
 
 import com.luucaslfs.backendchallenge.model.Subscription;
-import com.luucaslfs.backendchallenge.model.SubscriptionDTO;
+import com.luucaslfs.backendchallenge.dto.SubscriptionDTO;
 import com.luucaslfs.backendchallenge.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,21 +36,8 @@ public class MessageReceiver {
                 break;
         }
 
-        SubscriptionDTO subscriptionDTO = new SubscriptionDTO(
-                subscriptionId,
-                null,
-                new Timestamp(System.currentTimeMillis()),
-                0,
-                statusId
-        );
-
-        Optional<Subscription> updatedSubscription = subscriptionService.updateSubscriptionStatus(subscriptionDTO);
-
-        if (updatedSubscription.isPresent()) {
-            // Perform any additional operations if needed
-            // For example, you can log the updated subscription
-            System.out.println("Subscription updated: " + updatedSubscription.get());
-        }
+        Subscription updatedSubscription = subscriptionService.updateSubscriptionStatus(subscriptionId, statusId);
+        System.out.println("Subscription updated: " + subscriptionId + " " + statusId);
     }
 
 

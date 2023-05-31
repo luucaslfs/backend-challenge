@@ -1,6 +1,6 @@
 package com.luucaslfs.backendchallenge.controller;
 
-import com.luucaslfs.backendchallenge.model.UserDTO;
+import com.luucaslfs.backendchallenge.dto.UserDTO;
 import com.luucaslfs.backendchallenge.model.User;
 import com.luucaslfs.backendchallenge.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;

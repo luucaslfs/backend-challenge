@@ -1,11 +1,12 @@
 package com.luucaslfs.backendchallenge.service;
 
+import com.luucaslfs.backendchallenge.dto.SubscriptionDTO;
+import com.luucaslfs.backendchallenge.exception.ResourceNotFoundException;
 import com.luucaslfs.backendchallenge.model.*;
 import com.luucaslfs.backendchallenge.repository.EventHistoryRepository;
 import com.luucaslfs.backendchallenge.repository.StatusRepository;
 import com.luucaslfs.backendchallenge.repository.SubscriptionRepository;
 import com.luucaslfs.backendchallenge.repository.UserRepository;
-import org.hibernate.event.internal.EvictVisitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,12 +30,8 @@ public class SubscriptionService {
     @Autowired
     private EventHistoryRepository eventHistoryRepository;
 
-    public List<Subscription> getAllSubscriptions() {
-        return subscriptionRepository.findAll();
-    }
-
     public Optional<Subscription> registerSubscription(SubscriptionDTO data) {
-        Optional<User> optionalUser = userRepository.findById(data.user_id());
+        Optional<User> optionalUser = userRepository.findById(data.getUser_id());
         Optional<Status> optionalStatus = statusRepository.findByStatusName("NEVER_ACTIVATED");
 
         if (optionalUser.isPresent()) {
@@ -54,9 +51,9 @@ public class SubscriptionService {
 
     @Transactional
     public Optional<Subscription> updateSubscription(SubscriptionDTO data) {
-        Optional<Subscription> optionalSubscription = subscriptionRepository.findById(data.id());
-        Optional<User> optionalUser = userRepository.findById(data.user_id());
-        Optional<Status> optionalStatus = statusRepository.findById(data.status_id());
+        Optional<Subscription> optionalSubscription = subscriptionRepository.findById(data.getId());
+        Optional<User> optionalUser = userRepository.findById(data.getUser_id());
+        Optional<Status> optionalStatus = statusRepository.findById(data.getStatus_id());
 
         if (optionalSubscription.isPresent()) {
             Subscription subscription = optionalSubscription.get();
@@ -71,25 +68,25 @@ public class SubscriptionService {
     }
 
     @Transactional
-    public Optional<Subscription> updateSubscriptionStatus(SubscriptionDTO data) {
-        Optional<Subscription> optionalSubscription = subscriptionRepository.findById(data.id());
-        Optional<Status> optionalStatus = statusRepository.findById(data.status_id());
+    public Subscription updateSubscriptionStatus(int subscriptionId, int statusId) {
+        Optional<Subscription> optionalSubscription = subscriptionRepository.findById(subscriptionId);
+        Optional<Status> optionalStatus = statusRepository.findById(statusId);
 
-        if (optionalSubscription.isPresent()) {
-            Subscription subscription = optionalSubscription.get();
-            subscription.setStatus(optionalStatus.get());
-            subscription.setUpdatedAt(data.updatedAt());
-
-            EventHistory eventHistory = EventHistory.builder()
-                    .subscription(subscription)
-                    .type("STATUS_UPDATE")
-                    .createdAt(new Timestamp(System.currentTimeMillis()))
-                    .build();
-            eventHistoryRepository.save(eventHistory);
-
-            return Optional.of(subscription);
-        } else {
-            return Optional.empty();
+        if (optionalSubscription.isEmpty()) {
+            throw new ResourceNotFoundException("Subscription not found with id " + subscriptionId);
         }
+
+        Subscription subscription = optionalSubscription.get();
+        subscription.setStatus(optionalStatus.get());
+        subscription.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+
+        EventHistory eventHistory = EventHistory.builder()
+                .subscription(subscription)
+                .type("STATUS_UPDATE_TO_" + optionalStatus.get().getStatusName())
+                .createdAt(new Timestamp(System.currentTimeMillis()))
+                .build();
+        eventHistoryRepository.save(eventHistory);
+
+        return subscription;
     }
 }
