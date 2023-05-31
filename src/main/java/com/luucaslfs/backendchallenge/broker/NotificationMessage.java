@@ -9,6 +9,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @ToString
 public class NotificationMessage {
 
