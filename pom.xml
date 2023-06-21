@@ -10,13 +10,17 @@
     </parent>
     <groupId>com.luucaslfs</groupId>
     <artifactId>backend-challenge</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <name>backend-challenge</name>
     <description>backend-challenge</description>
     <properties>
         <java.version>17</java.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -36,19 +40,14 @@
             <version>2.5.0</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <version>2.5.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.h2.database</groupId>
+            <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+            <version>2.1.214</version>
             <scope>test</scope>
         </dependency>
         <!-- Jackson JSON Processor -->
@@ -97,11 +96,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
         <dependency>
@@ -117,6 +111,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -29,7 +29,7 @@ class SubscriptionControllerTest {
     private SubscriptionController subscriptionController;
 
     SubscriptionDTO RECORD_1 = SubscriptionDTO.builder()
-            .id(1L)
+            .id(1)
             .build();
 
     @Before
