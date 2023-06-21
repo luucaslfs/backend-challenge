@@ -1,7 +1,19 @@
 version: '3.7'
 
 services:
-  mysql:
+  springboot:
+    container_name: "api"
+    image: backend-challenge:latest
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    depends_on:
+      - mysqldb
+      - rabbitmq3
+    networks:
+      - backend
+
+  mysqldb:
     image: mysql:8.0
     restart: always
     environment:
@@ -13,3 +25,26 @@ services:
       - ./mysql-data:/var/lib/mysql
     ports:
       - "3306:3306"
+    networks:
+      - backend
+
+  rabbitmq3:
+    image: rabbitmq:3.8-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      # AMQP protocol port
+      - '5672:5672'
+      # HTTP management UI
+      - '15672:15672'
+    restart: on-failure
+    networks:
+      - backend
+
+volumes:
+  rabbitmq-config:
+    driver: local
+
+networks:
+  backend:

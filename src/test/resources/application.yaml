@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: "[TEST] Streaming Subscription Service"
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/streamingdb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: atlantico
+    password: atlantico
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    template:
+      default-receive-queue: subscription.v1.subscription-update
+
+springdoc:
+  paths-to-exclude: /eventHistories/**, /profile/**, /subscriptions/**, /users/**, /statuses/**
+
+server:
+  port: 8080

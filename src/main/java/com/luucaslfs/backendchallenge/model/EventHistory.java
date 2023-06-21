@@ -11,22 +11,23 @@ import java.sql.Timestamp;
 @Setter
 @ToString
 @Entity
+@Builder
 @Table(name = "event_history")
 public class EventHistory {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subscription_id")
-    @ToString.Exclude
-    private Subscription subscription;
 
     @Column(name = "type")
     private String type;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "subscription_id", referencedColumnName = "id")
+    private Subscription subscription;
 
 }

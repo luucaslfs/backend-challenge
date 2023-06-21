@@ -1,20 +1,23 @@
 package com.luucaslfs.backendchallenge.model;
 
+import com.luucaslfs.backendchallenge.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
 
+@Entity(name = "user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-@Entity(name = "user_details")
-@Table(name = "user")
-public class User {
+@Builder
+@EqualsAndHashCode(of = "id")
 
+public class User {
     @Id
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -24,4 +27,8 @@ public class User {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
+    public User(UserDTO userDTO) {
+        this.fullName = userDTO.getFullName();
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+    }
 }

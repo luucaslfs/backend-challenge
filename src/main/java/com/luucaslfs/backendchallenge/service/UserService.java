@@ -1,23 +1,61 @@
 package com.luucaslfs.backendchallenge.service;
 
+import com.luucaslfs.backendchallenge.dto.UserDTO;
+import com.luucaslfs.backendchallenge.model.Subscription;
 import com.luucaslfs.backendchallenge.model.User;
+import com.luucaslfs.backendchallenge.repository.StatusRepository;
+import com.luucaslfs.backendchallenge.repository.SubscriptionRepository;
+import com.luucaslfs.backendchallenge.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
-public interface UserService {
-    // create operation
-    User createUser(User user);
+@Service
+public class UserService {
 
-    // read one operation
-    User getUserById(int userId);
+    @Autowired
+    private UserRepository userRepository;
 
-    // read all operation
-    List<User> getAllUsers();
+    @Autowired
+    private StatusRepository statusRepository;
 
-    // update operation
-    User updateUser(User user, int userId);
+    @Autowired
+    private SubscriptionRepository subscriptionRepository;
 
-    // delete operation
-    void deleteUser(int userId);
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User registerUser(UserDTO data) {
+        User user = User.builder()
+                .fullName(data.getFullName())
+                .createdAt(new Timestamp(System.currentTimeMillis()))
+                .build();
+        Subscription subscription = Subscription.builder()
+                .createdAt(new Timestamp(System.currentTimeMillis()))
+                .user(user)
+                .status(statusRepository.findByStatusName("NEVER_ACTIVATED").get())
+                .build();
+        subscriptionRepository.save(subscription);
+        return user;
+    }
+
+    @Transactional
+    public Optional<User> updateUser(UserDTO data) {
+        Optional<User> optionalUser = userRepository.findById(data.getId());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setFullName(data.getFullName());
+            // Set other fields if necessary
+            // Perform any additional business logic or validation here
+            return Optional.of(user);
+        } else {
+            return Optional.empty();
+        }
+    }
+
 }
-
