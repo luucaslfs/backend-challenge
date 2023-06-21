@@ -108,3 +108,11 @@
     28/05 - Criada documentação com SpringDOC e Swagger
 
     29/05 - Testes unitarios criados
+
+    30/05 - Testes de integracao criados
+
+    01/06 - Ultimos ajustes para release
+
+    01/06 - Projeto pronto e rodando
+
+    20/06 - Release 0.1.0 para apresentação
